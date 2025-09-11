@@ -1,0 +1,4 @@
+-sudo upgrade
+-git clone https://github.com/Mauyi0907/betabot-whatsapp
+-npm install
+-install yarn
