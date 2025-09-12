@@ -763,16 +763,54 @@ if (text.toLowerCase() === "!grabar") {
    👉 !globoscoop
    👉 !linternacoop
 
+ *Rango: 🐤 Chica*
+  👋 *Individual*
+   👉 !ttt
+   👉 !cupcakerun
+   👉 !luzjuego
+
+ 🤝*Cooperativos*    
+   👉 !pizzarace
+   👉 !cocinaloca
+   👉 !noche
+
+ *Rango: 🐰 Bonnie*
+  👋 *Individual*
+   👉 !plushtrap
+   👉 !musica - !repetir
+   👉 !guitarra
+   👉 !linterna
+
+ 🤝*Cooperativos*
+   👉 !duo
+   👉 !banda
+   👉 !afinar
+
+ *Rango: 🦊 Foxy*
+  👋 *Individual*
+   👉 !scrapbaby
+   👉 !carrerafoxy
+   👉 !tesorofoxy
+   👉 !emboscadafoxy
+
+ 🤝*Cooperativos*
+   👉 !barcofoxy - !remar
+   👉 !cazafoxy - !excavar
+   👉 !batallafoxy - !disparar
+
+ *Rango: 🐻 Freddy*
+  👋 *Individual*
+   👉 !lefty
+   👉 !sombras
+   👉 !campanas
+
+ 🤝*Cooperativos*
+   👉 !coro
+   👉 !puertas-!forzar
+   👉 !ritual
 🎮 *TicTacToe 2 Jugadores*
    👉 !ttt (Jugador 1 inicia, Jugador 2 usa !join)
 
-👻 *Plushtrap Challenge*
-   👉 !plushtrap
-   👉 !flash (para encender la linterna)
-
-📋 *Entrevistas con animatronicos*
-   👉!scrapbaby
-   👉!lefty
 
 🍧 *Prepara un Helado*
     👉!helado → Prepara un helado para un amigo 🍦
