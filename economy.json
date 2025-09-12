@@ -3,21 +3,25 @@
     "fazcoins": 325,
     "xp": 167,
     "level": 9,
-    "inventory": []
+    "inventory": [],
+    "rank": "Administrador",
+    "adminNickname": " El tigre 🐅"
   },
   "17386598043709@lid": {
     "fazcoins": 35
   },
   "96951001444358@lid": {
-    "fazcoins": 29088,
-    "xp": 475,
+    "fazcoins": 29127,
+    "xp": 565,
     "level": 39,
     "inventory": [
       "🐤 Chica",
       "🐰 Bonnie",
       "🦊 Foxy",
       "🐻 Freddy"
-    ]
+    ],
+    "rank": "Administrador",
+    "adminNickname": " ꧁༺Mauro༻꧂"
   },
   "89460142252195@s.whatsapp.net": {
     "fazcoins": 40,
@@ -30,5 +34,59 @@
     "xp": 3,
     "level": 1,
     "inventory": []
+  },
+  "254790546288680@lid": {
+    "fazcoins": 5,
+    "xp": 4,
+    "level": 1,
+    "inventory": [],
+    "rank": "Administrador",
+    "adminNickname": "⛧𝑱𝑨𝑪𝑲⛧"
+  },
+  "219554483544284@lid": {
+    "fazcoins": 0,
+    "xp": 0,
+    "level": 0,
+    "inventory": [],
+    "rank": "Administrador",
+    "adminNickname": "⁂★💫✨ᵗᵃᵠᵘⁱᵗᵒ ᵖᵉʳᵘᵃⁿᵒ✨💫★⁂"
+  },
+  "38500506280185@lid": {
+    "fazcoins": 0,
+    "xp": 0,
+    "level": 0,
+    "inventory": [],
+    "rank": "Administrador",
+    "adminNickname": "★彡Dayshift彡★"
+  },
+  "5219617944151@s.whatsapp.net": {
+    "fazcoins": 0,
+    "xp": 64,
+    "level": 0,
+    "inventory": []
+  },
+  "101924204462200@lid": {
+    "fazcoins": 0,
+    "xp": 1,
+    "level": 1,
+    "inventory": [],
+    "rank": "Administrador",
+    "adminNickname": " ♠️♣️♥️♦️"
+  },
+  "181003192664086@lid": {
+    "fazcoins": 7,
+    "xp": 56,
+    "level": 0,
+    "inventory": [],
+    "rank": "Administrador",
+    "adminNickname": "@181003192664086"
+  },
+  "72585517731978@lid": {
+    "fazcoins": 0,
+    "xp": 0,
+    "level": 0,
+    "inventory": [],
+    "rank": "Administrador",
+    "adminNickname": "Alex Herrera"
   }
 }

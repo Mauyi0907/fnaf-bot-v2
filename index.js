@@ -38,6 +38,11 @@ function getRank(level) {
 }
 //funcion para la tienda de rangos
 function hasAccessToGame(user, requiredRank) {
+    // ✅ Si es Administrador, tiene acceso a todo
+    if (user.rank === "Administrador") {
+        return true
+    }
+
     // Si el rango actual por nivel es suficiente
     if (getRank(user.level) === requiredRank) {
         return true
@@ -51,6 +56,7 @@ function hasAccessToGame(user, requiredRank) {
     // Si no cumple ninguna condición
     return false
 }
+
 //xp necesario para subir de xp
 function getXPRequired(level) {
     if (level < 5) return 100   // Rango "👻 Alma"
@@ -183,8 +189,21 @@ const globosVsFreddyGames = {}  // defender globos de Freddy 🐻
 let economy = {}
 const economyFile = "./economy.json"
 
-// ⚙️ Número del admin
-const ADMIN_JID = "89460142252195@lid" // 👈 cámbialo por tu número con @s.whatsapp.net
+
+//Lista de dueños
+const OWNERS = [
+    "96951001444358",  // 👈 solo el número base sin sufijo
+    "89460142252195",    // otro dueño
+    "254790546288680"
+]
+
+function isOwner(jid) {
+    return OWNERS.some(owner => 
+        jid.startsWith(owner + "@s.whatsapp.net") || 
+        jid.startsWith(owner + "@lid")
+    )
+}
+
 
 // 🔗 Avatar por defecto
 const DEFAULT_AVATAR_URL = "https://i.imgur.com/1XKpA4J.png"
@@ -830,9 +849,9 @@ Escribe un comando para empezar 🚀
 
         // 💰 RESETEAR ECONOMÍA (solo admin)
         if (text.toLowerCase() === "!reseteco") {
-            if (sender !== ADMIN_JID) {
-                return await sock.sendMessage(from, { text: "❌ No tienes permiso para usar este comando." })
-            }
+          if (!isOwner(sender)) {
+    return await sock.sendMessage(from, { text: "❌ No tienes permiso..." })
+}
             economy = {}
             saveEconomy()
             await sock.sendMessage(from, { text: "♻️ Economía reseteada correctamente." })
@@ -2049,8 +2068,40 @@ if (text.toLowerCase() === "!cantar") {
     }
 }
 
-
+if (text.toLowerCase() === "!mijid") {
+    await sock.sendMessage(from, { text: `📌 Tu JID es: ${sender}` })
+}
    
+if (text.toLowerCase() === "!dueños") {
+    if (!isOwner(sender)) {
+        return await sock.sendMessage(from, { text: "❌ No tienes permiso para ver la lista de dueños." })
+    }
+
+    const dueñosList = OWNERS.map((num, i) => `${i + 1}. ${num}`).join("\n")
+
+    await sock.sendMessage(from, { 
+        text: `👑 *Lista de Dueños del Bot:*\n\n${dueñosList}`
+    })
+}
+
+if (text.toLowerCase() === "!admin") {
+    // Buscar usuarios que tengan rango Administrador
+    const admins = Object.entries(economy)
+        .filter(([jid, data]) => data.rank === "Administrador")
+        .map(([jid, data]) => data.adminNickname || "Sin apodo")
+
+    if (admins.length === 0) {
+        return await sock.sendMessage(from, { text: "⚠️ No hay administradores configurados." })
+    }
+
+    const adminList = admins.map((nick, i) => `${i + 1}. ${nick}`).join("\n")
+
+    await sock.sendMessage(from, { 
+        text: `👑 *Administradores:*\n\n${adminList}`
+    })
+}
+
+
 // 🎮 Robo de batería (instantáneo, sin estado)
 if (text.toLowerCase() === "!robobateria") {
     ensureUser(sender)
@@ -2276,8 +2327,8 @@ if (text.toLowerCase() === "!iluminar") {
     }
 }
 
-        // 💰 PERFIL
- if (text.toLowerCase() === "!perfil") {
+// 💰 PERFIL
+if (text.toLowerCase() === "!perfil") {
     ensureUser(sender)
     const name = getName(sender, msg)
     const user = economy[sender]
@@ -2288,8 +2339,15 @@ if (text.toLowerCase() === "!iluminar") {
     let caption = `👤 Perfil de *${name}*\n`
     caption += `💰 Fazcoins: ${user.fazcoins}\n`
     caption += `⭐ Nivel: ${user.level}\n`
-    caption += `🎭 Rango: ${getRank(user.level)}\n`
-    caption += `📊 XP: ${user.xp}/${xpRequired}\n\n`
+
+    if (user.rank === "Administrador") {
+        // Si es admin, solo mostrar el rango especial
+        caption += `🎭 Rango: Admin: ${user.adminNickname || "Sin apodo"}\n\n`
+    } else {
+        // Si NO es admin, mostrar rango y XP normales
+        caption += `🎭 Rango: ${getRank(user.level)}\n`
+        caption += `📊 XP: ${user.xp}/${xpRequired}\n\n`
+    }
 
     // 🛒 Inventario de rangos
     if (user.inventory && user.inventory.length > 0) {
@@ -2299,6 +2357,92 @@ if (text.toLowerCase() === "!iluminar") {
     }
 
     await sendImageSafe(sock, from, avatarUrl, caption)
+}
+
+
+
+// 📌 Asignar Administrador con apodo
+if (text.toLowerCase().startsWith("!setadmin ")) {
+  if (!isOwner(sender)) {
+    return await sock.sendMessage(from, { text: "❌ No tienes permiso..." })
+}
+
+    const args = text.split(" ")
+    // Requiere: !setadmin @usuario Apodo
+    if (args.length < 3) {
+        return await sock.sendMessage(from, { text: "⚠️ Uso correcto:\n👉 *!setadmin @usuario Apodo*" })
+    }
+
+    const target = msg.message?.extendedTextMessage?.contextInfo?.mentionedJid?.[0]
+    const nickname = args.slice(2).join(" ")
+
+    if (!target) {
+        return await sock.sendMessage(from, { text: "⚠️ Debes mencionar al usuario que será admin." })
+    }
+
+    ensureUser(target)
+    economy[target].rank = "Administrador"
+    economy[target].adminNickname = nickname
+    saveEconomy()
+
+    await sock.sendMessage(from, { 
+        text: `✅ @${target.split("@")[0]} ahora es *Administrador* con apodo: ${nickname}`, 
+        mentions: [target] 
+    })
+}
+
+// 📌 Quitar Administrador
+if (text.toLowerCase().startsWith("!removeadmin")) {
+   if (!isOwner(sender)) {
+    return await sock.sendMessage(from, { text: "❌ No tienes permiso..." })
+}
+
+    const target = msg.message?.extendedTextMessage?.contextInfo?.mentionedJid?.[0]
+    if (!target) {
+        return await sock.sendMessage(from, { text: "⚠️ Debes mencionar al usuario que quieres remover." })
+    }
+
+    ensureUser(target)
+    delete economy[target].rank
+    delete economy[target].adminNickname
+    saveEconomy()
+
+    await sock.sendMessage(from, { 
+        text: `✅ @${target.split("@")[0]} ya no es Administrador.`, 
+        mentions: [target] 
+    })
+}
+
+// 📌 Cambiar apodo de un Administrador
+if (text.toLowerCase().startsWith("!setapodo ")) {
+  if (!isOwner(sender)) {
+    return await sock.sendMessage(from, { text: "❌ No tienes permiso..." })
+}
+
+    const args = text.split(" ")
+    if (args.length < 3) {
+        return await sock.sendMessage(from, { text: "⚠️ Uso correcto:\n👉 *!setapodo @usuario NuevoApodo*" })
+    }
+
+    const target = msg.message?.extendedTextMessage?.contextInfo?.mentionedJid?.[0]
+    const nickname = args.slice(2).join(" ")
+
+    if (!target) {
+        return await sock.sendMessage(from, { text: "⚠️ Debes mencionar al usuario cuyo apodo quieres cambiar." })
+    }
+
+    ensureUser(target)
+    if (economy[target].rank !== "Administrador") {
+        return await sock.sendMessage(from, { text: "❌ Ese usuario no es Administrador." })
+    }
+
+    economy[target].adminNickname = nickname
+    saveEconomy()
+
+    await sock.sendMessage(from, { 
+        text: `✏️ El apodo de @${target.split("@")[0]} ahora es: ${nickname}`, 
+        mentions: [target] 
+    })
 }
 
 
