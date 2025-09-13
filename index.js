@@ -2113,6 +2113,32 @@ if (text.toLowerCase() === "!admin") {
     })
 }
 
+// ✏️ Cambiar apodo de administrador
+if (text.toLowerCase().startsWith("!setapodo")) {
+  if (!isOwner(sender)) {
+    return await sock.sendMessage(from, { text: "❌ No tienes permiso para usar este comando." })
+  }
+
+  const mentioned = msg.message?.extendedTextMessage?.contextInfo?.mentionedJid
+  const args = text.split(" ").slice(1)
+
+  if (!mentioned || mentioned.length === 0) {
+    return await sock.sendMessage(from, { text: "⚠️ Uso correcto: !setapodo @usuario NuevoApodo" })
+  }
+
+  const target = mentioned[0]
+  const newNick = args.slice(1).join(" ")
+
+  if (!economy[target] || economy[target].rank !== "Administrador") {
+    return await sock.sendMessage(from, { text: "⚠️ Ese usuario no es administrador." })
+  }
+
+  economy[target].adminNickname = newNick
+  saveEconomy()
+
+  await sock.sendMessage(from, { text: `✅ Se cambió el apodo de administrador:\n👉 ${newNick}` })
+}
+
 
 // 🎮 Robo de batería (instantáneo, sin estado)
 if (text.toLowerCase() === "!robobateria") {
