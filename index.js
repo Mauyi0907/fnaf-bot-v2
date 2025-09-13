@@ -847,15 +847,27 @@ Escribe un comando para empezar 🚀
             await sock.sendMessage(from, { text: menuMessage })
         }
 
-        // 💰 RESETEAR ECONOMÍA (solo admin)
-        if (text.toLowerCase() === "!reseteco") {
-          if (!isOwner(sender)) {
-    return await sock.sendMessage(from, { text: "❌ No tienes permiso..." })
+     // 💰 RESETEAR ECONOMÍA (solo admin)
+if (text.toLowerCase() === "!reseteco") {
+  if (!isOwner(sender)) {
+    return await sock.sendMessage(from, { text: "❌ No tienes permiso para usar este comando." })
+  }
+
+  // Guardar SOLO los administradores con sus datos completos
+  const admins = {}
+  for (const [jid, user] of Object.entries(economy)) {
+    if (user.rank === "Administrador") {
+      admins[jid] = user // ✅ conservar todo tal cual
+    }
+  }
+
+  // Reemplazar la economía solo con admins
+  economy = admins
+  saveEconomy()
+
+  await sock.sendMessage(from, { text: "♻️ Economía reseteada. Solo se conservaron los administradores con todos sus datos." })
 }
-            economy = {}
-            saveEconomy()
-            await sock.sendMessage(from, { text: "♻️ Economía reseteada correctamente." })
-        }
+
 
         // 🎮 Iniciar Plushtrap
 if (text.toLowerCase() === "!plushtrap") {
