@@ -1,14 +1,19 @@
 {
-  "89460142252195@lid": {
-    "fazcoins": 325,
-    "xp": 167,
-    "level": 9,
+  "101924204462200@lid": {
+    "fazcoins": 0,
+    "xp": 1,
+    "level": 1,
     "inventory": [],
     "rank": "Administrador",
-    "adminNickname": " El tigre 🐅"
+    "adminNickname": " ♠️♣️♥️♦️"
   },
-  "17386598043709@lid": {
-    "fazcoins": 35
+  "5219617944151@s.whatsapp.net": {
+    "fazcoins": 0,
+    "xp": 64,
+    "level": 0,
+    "inventory": [],
+    "rank": "Administrador",
+    "adminNickname": "★MARIONETT★!"
   },
   "96951001444358@lid": {
     "fazcoins": 29127,
@@ -23,17 +28,13 @@
     "rank": "Administrador",
     "adminNickname": " ꧁༺Mauro༻꧂"
   },
-  "89460142252195@s.whatsapp.net": {
-    "fazcoins": 40,
-    "xp": 50,
-    "level": 0,
-    "inventory": []
-  },
-  "63578954555488@lid": {
-    "fazcoins": 0,
-    "xp": 3,
-    "level": 1,
-    "inventory": []
+  "89460142252195@lid": {
+    "fazcoins": 325,
+    "xp": 167,
+    "level": 9,
+    "inventory": [],
+    "rank": "Administrador",
+    "adminNickname": " El tigre 🐅"
   },
   "254790546288680@lid": {
     "fazcoins": 5,
@@ -59,34 +60,31 @@
     "rank": "Administrador",
     "adminNickname": "★彡Dayshift彡★"
   },
-  "5219617944151@s.whatsapp.net": {
-    "fazcoins": 0,
-    "xp": 64,
+  "17386598043709@lid": {
+    "fazcoins": 35
+  },
+  "89460142252195@s.whatsapp.net": {
+    "fazcoins": 40,
+    "xp": 50,
     "level": 0,
     "inventory": []
   },
-  "101924204462200@lid": {
+  "63578954555488@lid": {
     "fazcoins": 0,
-    "xp": 1,
+    "xp": 3,
     "level": 1,
-    "inventory": [],
-    "rank": "Administrador",
-    "adminNickname": " ♠️♣️♥️♦️"
+    "inventory": []
   },
   "181003192664086@lid": {
     "fazcoins": 7,
     "xp": 56,
     "level": 0,
-    "inventory": [],
-    "rank": "Administrador",
-    "adminNickname": "@181003192664086"
+    "inventory": []
   },
   "72585517731978@lid": {
     "fazcoins": 0,
     "xp": 0,
     "level": 0,
-    "inventory": [],
-    "rank": "Administrador",
-    "adminNickname": "Alex Herrera"
+    "inventory": []
   }
 }
